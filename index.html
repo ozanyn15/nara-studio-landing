@@ -1517,12 +1517,13 @@
             e.preventDefault();
 
             const backendEndpoint = document.getElementById('backendEndpointInput').value.trim();
-            const backendToken = document.getElementById('backendTokenInput').value.trim();
+            const rawBackendToken = document.getElementById('backendTokenInput').value.trim();
+            const backendToken = rawBackendToken.replace(/^Bearer\s+/i, '');
             const type = generationType.value;
             const model = modelInput.value.trim();
             const prompt = promptInput.value.trim();
-            const tokenPattern = /^[A-Za-z0-9._~-]+$/;
-            const base64Pattern = /^[A-Za-z0-9+/=]+$/;
+            const tokenPattern = /^[A-Za-z0-9._-]+$/;
+            const base64Pattern = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
 
             if (!backendEndpoint || !model || !prompt) {
                 showToast('Lütfen tüm alanları doldur.', 'error');
@@ -1534,14 +1535,13 @@
                 return;
             }
 
-            if (backendToken && backendToken.length < 20) {
-                showToast('Backend token en az 20 karakter olmalı.', 'error');
-                return;
-            }
-
             generateBtn.disabled = true;
             generateBtn.textContent = 'Üretiliyor...';
-            generatorOutput.innerHTML = '<div class="status">İşleniyor...</div>';
+            generatorOutput.innerHTML = '';
+            const loadingStatusEl = document.createElement('div');
+            loadingStatusEl.className = 'status';
+            loadingStatusEl.textContent = 'İşleniyor...';
+            generatorOutput.append(loadingStatusEl);
 
             try {
                 const headers = {
@@ -1605,6 +1605,17 @@
                     }
                     if (b64 && !base64Pattern.test(b64)) {
                         throw new Error('Geçersiz base64 görsel verisi döndü.');
+                    }
+                    if (imageUrl) {
+                        let parsedImageUrl;
+                        try {
+                            parsedImageUrl = new URL(imageUrl);
+                        } catch (_error) {
+                            throw new Error('Geçersiz görsel URL formatı döndü.');
+                        }
+                        if (!['http:', 'https:'].includes(parsedImageUrl.protocol)) {
+                            throw new Error('Görsel URL protokolü güvenli değil.');
+                        }
                     }
 
                     const statusEl = document.createElement('div');
