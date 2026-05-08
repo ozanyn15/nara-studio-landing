@@ -1521,9 +1521,15 @@
             const type = generationType.value;
             const model = modelInput.value.trim();
             const prompt = promptInput.value.trim();
+            const tokenPattern = /^[A-Za-z0-9._~-]+$/;
 
             if (!backendEndpoint || !model || !prompt) {
                 showToast('Lütfen tüm alanları doldur.', 'error');
+                return;
+            }
+
+            if (backendToken && !tokenPattern.test(backendToken)) {
+                showToast('Geçersiz backend token formatı.', 'error');
                 return;
             }
 
