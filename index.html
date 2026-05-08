@@ -667,6 +667,12 @@
             margin-top: 8px;
             background: #000;
         }
+
+        .generator-help-text {
+            margin-top: 12px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
         
         /* Pricing */
         .pricing {
@@ -1200,7 +1206,7 @@
 
             <div class="generator-panel">
                 <div class="generator-warning">
-                    🔒 Güvenlik için üretim istekleri backend endpoint'ine gönderilir; üçüncü parti API anahtarlarını tarayıcıya koyma.
+                    🔒 Güvenlik için üretim istekleri backend endpoint'ine gönderilir; üçüncü parti API anahtarlarını tarayıcıya koymayın.
                 </div>
 
                 <form id="aiGeneratorForm">
@@ -1233,7 +1239,7 @@
                     <div class="generator-actions">
                         <button type="submit" class="btn" id="generateBtn">AI ile Üret</button>
                     </div>
-                    <p style="margin-top:12px;color:var(--text-muted);font-size:13px;">
+                    <p class="generator-help-text">
                         Beklenen backend yanıtı: metin için <strong>text/content/output</strong>, görsel için <strong>imageUrl/url</strong> veya <strong>b64</strong>.
                     </p>
                 </form>
