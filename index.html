@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NARA Studio — AI Influencer Oluşturucu</title>
+    <title>NARA Studio — AI Video Platformu</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎭%3C/text%3E%3C/svg%3E">
     <style>
         * {
@@ -525,6 +525,33 @@
             transform: scale(1.1);
             box-shadow: 0 8px 40px rgba(139, 92, 246, 0.6);
         }
+
+        .architecture-panel {
+            max-width: 800px;
+            margin: 48px auto 0;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg-light);
+            aspect-ratio: 16/9;
+        }
+
+        .architecture-grid {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            align-content: center;
+        }
+
+        .architecture-card {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .architecture-card h3 {
+            font-size: 18px;
+        }
         
         /* Pricing */
         .pricing {
@@ -591,7 +618,7 @@
             margin-bottom: 24px;
         }
         
-        .price {
+        .phase-badge {
             font-size: 56px;
             font-weight: 900;
             margin: 24px 0;
@@ -601,7 +628,7 @@
             gap: 4px;
         }
         
-        .price span {
+        .phase-badge span {
             font-size: 18px;
             color: var(--text-muted);
             font-weight: 400;
@@ -878,27 +905,27 @@
             </div>
             
             <h1 class="animate-in delay-2">
-                AI Influencer<br>Studio
+                AI Video<br>Studio
             </h1>
             
             <p class="hero-subtitle animate-in delay-3">
-                Dakikalar içinde kendi AI influencer'ını oluştur. 
-                Görsel üret, video yap, otomatik paylaş — 
-                <strong>hiç yüzünü göstermeden.</strong>
+                Metinden videoya veya görselden videoya içerik üret. 
+                Sahne planı, seslendirme, montaj ve yayın hazırlığını 
+                <strong>tek iş akışında tamamla.</strong>
             </p>
             
             <div class="hero-stats animate-in delay-4">
                 <div class="stat">
-                    <div class="stat-number">500+</div>
-                    <div class="stat-label">Beta Başvurusu</div>
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Odaklı MVP Senaryosu</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">Platform</div>
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Üretim Aşaması</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">2dk</div>
-                    <div class="stat-label">Video Üretimi</div>
+                    <div class="stat-number">7/24</div>
+                    <div class="stat-label">Asenkron İşleme</div>
                 </div>
             </div>
             
@@ -908,7 +935,7 @@
             </form>
             
             <p class="trust animate-in delay-5">
-                🎯 İlk <strong>100 kullanıcıya özel</strong> — Lifetime erişim sadece <strong>$49</strong>
+                🎯 Kapalı beta için <strong>erken erişim listesi</strong> — ilk grupta yerini al
             </p>
         </div>
     </section>
@@ -916,7 +943,7 @@
     <!-- Social Proof -->
     <section class="social-proof">
         <div class="container">
-            <p>Faceless content creator'lar şimdiden kaydoluyor</p>
+            <p>AI video üretimi kurmak isteyen ekipler şimdiden sırada</p>
             <div class="avatars">
                 <div class="avatar">🎭</div>
                 <div class="avatar">📱</div>
@@ -932,45 +959,45 @@
     <section class="features" id="features">
         <div class="container">
             <div class="section-header">
-                <h2>Neler Yapabilirsin?</h2>
-                <p>Tek platformda AI influencer oluşturmanın tüm adımları</p>
+                <h2>Ürün Kapsamı ve MVP</h2>
+                <p>AI video üreticisini başlatmak için gereken çekirdek bileşenler</p>
             </div>
             
             <div class="feature-grid">
                 <div class="feature-card">
                     <div class="feature-icon">🎭</div>
-                    <h3>AI Karakter Oluştur</h3>
-                    <p>Fotoğraf yükle veya sıfırdan tasarla. Stil, yaş, tarz — tam kontrol. Leonardo.ai ile ultra-realistik sonuçlar.</p>
+                    <h3>Kapsamı Netleştir</h3>
+                    <p>Metinden videoya ve görselden videoya akışlarını aynı ürün altında tanımla. Avatar ve seslendirme ihtiyaçlarını açıkça ayır.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">🎬</div>
-                    <h3>Otomatik Video Üretimi</h3>
-                    <p>Dans, lifestyle, storytime — istediğin içerik tipini seç. Seedance 2.0 ile sinematik kalitede videolar.</p>
+                    <h3>Tek Senaryolu MVP</h3>
+                    <p>Önce kısa sosyal medya videosuna odaklan. Az seçenek, hızlı çıktı ve ölçülebilir sonuç ile ilk kullanıcıyı doğrula.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">📱</div>
-                    <h3>Multi-Platform Paylaşım</h3>
-                    <p>Instagram, TikTok, YouTube Shorts — hepsine tek tıkla yükle. Zamanla veya anında yayınla.</p>
+                    <h3>Mimariyi Ayrıştır</h3>
+                    <p>İstemci, API, model orkestrasyonu, depolama ve kuyruk katmanlarını baştan ayrıştırarak ölçeklenebilir bir temel kur.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">🤖</div>
-                    <h3>AI Caption & Hashtag</h3>
-                    <p>Otomatik başlık, açıklama ve hashtag önerileri. Trendlere uygun, viral olmaya hazır içerik.</p>
+                    <h3>Model Stratejisi</h3>
+                    <p>Başlangıçta hazır video API'leriyle hız kazan. Ürün-sinyali oluştuğunda özel model/fine-tune yatırımına geç.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
-                    <h3>Analytics Dashboard</h3>
-                    <p>İzlenme, beğeni, takipçi, engagement — tüm metrikler tek ekranda. Veriye dayalı büyüme.</p>
+                    <h3>İçerik Hattı</h3>
+                    <p>Prompt → sahne planı → video/görsel üretimi → ses/müzik → montaj sırasını deterministik bir pipeline olarak kurgula.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">⚡</div>
-                    <h3>Schedule & Otomasyon</h3>
-                    <p>Haftalık içerik planı yap, gerisini AI'ye bırak. Uyurken bile tutarlı içerik yayınla.</p>
+                    <h3>Kalite ve Güvenlik Temeli</h3>
+                    <p>Moderasyon, telif kontrolleri, zararlı içerik filtreleri ve kullanıcı kota yönetimini MVP'den itibaren zorunlu tut.</p>
                 </div>
             </div>
         </div>
@@ -980,33 +1007,33 @@
     <section class="how-it-works" id="how-it-works">
         <div class="container">
             <div class="section-header">
-                <h2>Nasıl Çalışır?</h2>
-                <p>4 adımda profesyonel AI influencer içeriği</p>
+                <h2>İçerik Üretim Akışı</h2>
+                <p>Prompttan yayına kadar operasyonel üretim süreci</p>
             </div>
             
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>Karakterini Oluştur</h3>
-                    <p>Fotoğraf yükle veya AI ile sıfırdan karakter tasarla. Stil, yaş, tarz — tam kontrol senin.</p>
+                    <h3>Girdiyi Al</h3>
+                    <p>Kullanıcı promptu, referans görseli ve format tercihleri doğrulanır; politika kontrolleri baştan uygulanır.</p>
                 </div>
                 
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>İçerik Şablonu Seç</h3>
-                    <p>Dans videosu mu? Lifestyle? Storytime? Şablonlardan seç veya kendi fikrini yaz.</p>
+                    <h3>Sahne Planı Üret</h3>
+                    <p>Storyboard, çekim listesi, ses tonu ve metin parçaları orkestrasyon katmanında oluşturulur.</p>
                 </div>
                 
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>AI Üretsin</h3>
-                    <p>2 dakika bekle — profesyonel video hazır. İstersen önizle, istersen direkt yayınla.</p>
+                    <h3>Asenkron Render</h3>
+                    <p>İşler kuyrukta çalışır, başarısız adımlar yeniden denenir, ara çıktılar depolanır ve kullanıcıya durum bildirilir.</p>
                 </div>
                 
                 <div class="step">
                     <div class="step-number">4</div>
-                    <h3>Otomatik Yayınla</h3>
-                    <p>Tüm platformlara tek tıkla yükle. Zamanla veya anında — sen seç.</p>
+                    <h3>Çıktıyı Teslim Et</h3>
+                    <p>Montaj sonrası kalite skoru hesaplanır; onaylanan video indirme veya yayın adımı için hazır hale gelir.</p>
                 </div>
             </div>
         </div>
@@ -1016,17 +1043,30 @@
     <section class="demo">
         <div class="container">
             <div class="section-header">
-                <h2>Demo Videolar</h2>
-                <p>NARA Studio ile üretilen örnek içerikler</p>
+                <h2>Referans Mimari</h2>
+                <p>Katmanların sorumluluklarını net ayıran uygulama iskeleti</p>
             </div>
             
-            <div class="demo-video">
-                <div class="play-btn">▶</div>
-            </div>
-            
-            <p style="margin-top: 24px; color: var(--text-muted);">
-                🎬 Demo videolar çok yakında burada olacak
-            </p>
+                <div class="architecture-panel">
+                    <div class="architecture-grid">
+                        <div class="feature-card architecture-card">
+                            <h3>İstemci</h3>
+                            <p>Kullanıcı akışı, önizleme ve iş durumu ekranları</p>
+                        </div>
+                        <div class="feature-card architecture-card">
+                            <h3>API</h3>
+                            <p>Kimlik, kota, istek doğrulama ve iş başlatma</p>
+                        </div>
+                        <div class="feature-card architecture-card">
+                            <h3>Orkestrasyon</h3>
+                            <p>Model seçimleri, adım geçişleri ve hata yönetimi</p>
+                        </div>
+                        <div class="feature-card architecture-card">
+                            <h3>Kuyruk + Depolama</h3>
+                            <p>Asenkron render, ara dosyalar, sonuç teslimi</p>
+                        </div>
+                    </div>
+                </div>
         </div>
     </section>
     
@@ -1034,51 +1074,51 @@
     <section class="pricing" id="pricing">
         <div class="container">
             <div class="section-header">
-                <h2>Fiyatlandırma</h2>
-                <p>Her aşamada uygun plan</p>
+                <h2>Operasyon ve Ölçüm Planı</h2>
+                <p>Kalite, maliyet ve büyüme metriklerini aynı çerçevede yönet</p>
             </div>
             
             <div class="pricing-grid">
                 <div class="pricing-card">
-                    <h3>Free</h3>
-                    <p class="description">Başlangıç için</p>
-                    <div class="price">$0<span>/ay</span></div>
+                    <h3>Kalite & Güvenlik</h3>
+                    <p class="description">MVP'den itibaren zorunlu katman</p>
+                    <div class="phase-badge">01<span>faz</span></div>
                     <ul>
-                        <li>10 video/ay</li>
-                        <li>1 platform</li>
-                        <li>Watermark</li>
-                        <li>Temel analytics</li>
+                        <li>İçerik moderasyonu</li>
+                        <li>Telif risk kontrolü</li>
+                        <li>Zararlı içerik filtreleme</li>
+                        <li>Kullanıcı kota limitleri</li>
                     </ul>
-                    <button class="btn">Ücretsiz Başla</button>
+                    <button class="btn">Politikayı Tanımla</button>
                 </div>
                 
                 <div class="pricing-card popular">
-                    <div class="popular-badge">En Popüler</div>
-                    <h3>Creator</h3>
-                    <p class="description">Profesyonel creator'lar için</p>
-                    <div class="price">$19<span>/ay</span></div>
+                    <div class="popular-badge">Öncelikli</div>
+                    <h3>Performans & Maliyet</h3>
+                    <p class="description">Sürdürülebilir üretim için</p>
+                    <div class="phase-badge">02<span>faz</span></div>
                     <ul>
-                        <li>50 video/ay</li>
-                        <li>Tüm platformlar</li>
-                        <li>Watermark yok</li>
-                        <li>Gelişmiş analytics</li>
-                        <li>AI caption & hashtag</li>
+                        <li>Asenkron iş kuyruğu</li>
+                        <li>Önbellek ve tekrar kullanım</li>
+                        <li>Yeniden deneme stratejisi</li>
+                        <li>İş başına maliyet takibi</li>
+                        <li>Kapasite planlama</li>
                     </ul>
-                    <button class="btn">Hemen Başla</button>
+                    <button class="btn">Operasyonu Kur</button>
                 </div>
                 
                 <div class="pricing-card">
-                    <h3>Pro</h3>
-                    <p class="description">Agency'ler için</p>
-                    <div class="price">$49<span>/ay</span></div>
+                    <h3>Ölçümleme & Lansman</h3>
+                    <p class="description">Doğru metrikle büyüme</p>
+                    <div class="phase-badge">03<span>faz</span></div>
                     <ul>
-                        <li>Sınırsız video</li>
-                        <li>Priority render</li>
-                        <li>API erişimi</li>
-                        <li>White-label</li>
-                        <li>Özel destek</li>
+                        <li>Üretim süresi ve başarı oranı</li>
+                        <li>Kullanıcı memnuniyeti ölçümü</li>
+                        <li>Yeniden deneme oranları</li>
+                        <li>Kapalı beta geri bildirim döngüsü</li>
+                        <li>Şablon/marka kiti/çok dil genişlemesi</li>
                     </ul>
-                    <button class="btn">İletişime Geç</button>
+                    <button class="btn">Lansman Planla</button>
                 </div>
             </div>
         </div>
@@ -1094,51 +1134,51 @@
             <div class="faq-grid">
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>NARA Studio nedir?</span>
+                        <span>NARA Studio bu sürümde ne sunuyor?</span>
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        NARA Studio, AI teknolojisi kullanarak hiç yüzünüzü göstermeden profesyonel influencer içeriği üretmenizi sağlayan bir platformdur. Görsel, video, caption ve otomatik paylaşım özellikleri tek çatı altında.
+                        Bu sürümde odak tek bir MVP akışıdır: kısa sosyal medya videosu üretimi. Metinden/görselden video üretimi, sahne planı ve teslim adımları tek ürün hattında çalışır.
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Ne kadar sürer video üretmek?</span>
+                        <span>Hangi model yaklaşımıyla başlanmalı?</span>
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        Tipik bir 15-30 saniyelik video 2-3 dakika içinde hazır. Daha uzun veya karmaşık videolar 5-10 dakika sürebilir.
+                        İlk aşamada hazır video API'leri ile pazara hızlı çıkış önerilir. Kullanım ve kalite verisi toplandıktan sonra özel model veya fine-tune kararı verilir.
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Hangi platformlara yükleyebilirim?</span>
+                        <span>Neden asenkron kuyruk kullanılıyor?</span>
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        Instagram Reels, TikTok ve YouTube Shorts'a doğrudan yükleyebilirsiniz. Diğer platformlar için indirip manuel yükleyebilirsiniz.
+                        Video üretimi yüksek gecikmeli bir işlemdir. Kuyruk yapısı sayesinde sistem aynı anda çok isteği yönetir, hata durumunda yeniden deneme yapar ve kullanıcıya ilerleme bilgisini verir.
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>AI influencer'ımı satabilir miyim?</span>
+                        <span>Kalite ve güvenlik nasıl korunuyor?</span>
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        Evet! Oluşturduğunuz AI karakterler ve içerikler size aittir. İsterseniz başkalarına satabilir veya lisanslayabilirsiniz.
+                        Moderasyon, telif taraması, zararlı içerik filtreleri ve kullanıcı kota limitleri üretim hattının zorunlu kontrolleridir; her iş bu filtrelerden geçmeden teslim edilmez.
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Ödeme yöntemleri neler?</span>
+                        <span>Lansman stratejisi nasıl ilerliyor?</span>
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        Kredi kartı, banka kartı ve PayPal ile ödeme yapabilirsiniz. Türkiye'de yaşayan kullanıcılar için havale/EFT seçeneği de yakında eklenecek.
+                        Önce kapalı beta ile geri bildirim toplanır, ardından doğrulanan ihtiyaçlara göre şablonlar, marka kitleri ve çok dil desteği kademeli olarak açılır.
                     </div>
                 </div>
             </div>
@@ -1148,8 +1188,8 @@
     <!-- Footer CTA -->
     <section class="footer-cta" id="waitlist">
         <div class="container">
-            <h2>Faceless Content Devrimine Katıl</h2>
-            <p>İlk 100 kullanıcıya özel fırsatları kaçırma</p>
+            <h2>Kapalı Beta'ya Katıl</h2>
+            <p>AI video üreticisinin ilk sürümünü erken test et</p>
             
             <div class="countdown" id="countdown">
                 <div class="countdown-item">
@@ -1176,7 +1216,7 @@
             </form>
             
             <p style="margin-top: 24px; color: var(--text-muted);">
-                🎯 <strong>47/100</strong> erken erişim hakkı kaldı
+                🎯 <strong>47/100</strong> kapalı beta kontenjanı kaldı
             </p>
         </div>
     </section>
