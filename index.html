@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NARA Studio — AI Video Üreticisi</title>
+    <title>NARA Studio — AI Video Üretici</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎭%3C/text%3E%3C/svg%3E">
     <style>
         * {
@@ -525,6 +525,23 @@
             transform: scale(1.1);
             box-shadow: 0 8px 40px rgba(139, 92, 246, 0.6);
         }
+
+        .architecture-grid {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            align-content: center;
+        }
+
+        .architecture-card {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .architecture-card h3 {
+            font-size: 18px;
+        }
         
         /* Pricing */
         .pricing {
@@ -591,7 +608,7 @@
             margin-bottom: 24px;
         }
         
-        .price {
+        .plan-id {
             font-size: 56px;
             font-weight: 900;
             margin: 24px 0;
@@ -601,7 +618,7 @@
             gap: 4px;
         }
         
-        .price span {
+        .plan-id span {
             font-size: 18px;
             color: var(--text-muted);
             font-weight: 400;
@@ -1020,21 +1037,21 @@
                 <p>Katmanların sorumluluklarını net ayıran uygulama iskeleti</p>
             </div>
             
-                <div class="demo-video" style="padding: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; align-content: center;">
-                    <div class="feature-card" style="padding: 20px; text-align: left;">
-                        <h3 style="font-size: 18px;">İstemci</h3>
+                <div class="demo-video architecture-grid">
+                    <div class="feature-card architecture-card">
+                        <h3>İstemci</h3>
                         <p>Kullanıcı akışı, önizleme ve iş durumu ekranları</p>
                     </div>
-                    <div class="feature-card" style="padding: 20px; text-align: left;">
-                        <h3 style="font-size: 18px;">API</h3>
+                    <div class="feature-card architecture-card">
+                        <h3>API</h3>
                         <p>Kimlik, kota, istek doğrulama ve iş başlatma</p>
                     </div>
-                    <div class="feature-card" style="padding: 20px; text-align: left;">
-                        <h3 style="font-size: 18px;">Orkestrasyon</h3>
+                    <div class="feature-card architecture-card">
+                        <h3>Orkestrasyon</h3>
                         <p>Model seçimleri, adım geçişleri ve hata yönetimi</p>
                     </div>
-                    <div class="feature-card" style="padding: 20px; text-align: left;">
-                        <h3 style="font-size: 18px;">Kuyruk + Depolama</h3>
+                    <div class="feature-card architecture-card">
+                        <h3>Kuyruk + Depolama</h3>
                         <p>Asenkron render, ara dosyalar, sonuç teslimi</p>
                     </div>
                 </div>
@@ -1053,7 +1070,7 @@
                 <div class="pricing-card">
                     <h3>Kalite & Güvenlik</h3>
                     <p class="description">MVP'den itibaren zorunlu katman</p>
-                    <div class="price">01<span>katman</span></div>
+                    <div class="plan-id">01<span>katman</span></div>
                     <ul>
                         <li>İçerik moderasyonu</li>
                         <li>Telif risk kontrolü</li>
@@ -1067,7 +1084,7 @@
                     <div class="popular-badge">Öncelikli</div>
                     <h3>Performans & Maliyet</h3>
                     <p class="description">Sürdürülebilir üretim için</p>
-                    <div class="price">02<span>odak</span></div>
+                    <div class="plan-id">02<span>odak</span></div>
                     <ul>
                         <li>Asenkron iş kuyruğu</li>
                         <li>Önbellek ve tekrar kullanım</li>
@@ -1081,7 +1098,7 @@
                 <div class="pricing-card">
                     <h3>Ölçümleme & Lansman</h3>
                     <p class="description">Doğru metrikle büyüme</p>
-                    <div class="price">03<span>faz</span></div>
+                    <div class="plan-id">03<span>faz</span></div>
                     <ul>
                         <li>Üretim süresi ve başarı oranı</li>
                         <li>Kullanıcı memnuniyeti ölçümü</li>
