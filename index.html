@@ -1545,12 +1545,25 @@
                     body: JSON.stringify({ type, model, prompt })
                 });
 
-                const data = await response.json();
+                let data = null;
+                const responseType = response.headers.get('content-type') || '';
+                if (responseType.includes('application/json')) {
+                    try {
+                        data = await response.json();
+                    } catch (_error) {
+                        data = null;
+                    }
+                }
+
                 if (!response.ok) {
                     const fallback = type === 'text'
                         ? `Metin üretimi başarısız oldu (HTTP ${response.status}). Endpoint, model ve backend kimlik doğrulamasını kontrol et.`
                         : `Görsel üretimi başarısız oldu (HTTP ${response.status}). Endpoint, model ve backend kimlik doğrulamasını kontrol et.`;
-                    throw new Error(data.error?.message || fallback);
+                    throw new Error(data?.error?.message || fallback);
+                }
+
+                if (!data) {
+                    throw new Error('Backend JSON formatında yanıt dönmedi.');
                 }
 
                 if (type === 'text') {
@@ -1583,8 +1596,13 @@
                     generatorOutput.append(statusEl, img);
                 }
             } catch (error) {
-                generatorOutput.innerHTML = `<div class="status">❌ ${error.message || 'Üretim hatası oluştu.'}</div>`;
-                showToast(error.message || 'Bilinmeyen hata', 'error');
+                const safeErrorMessage = error?.message || 'Üretim hatası oluştu.';
+                generatorOutput.innerHTML = '';
+                const errorStatusEl = document.createElement('div');
+                errorStatusEl.className = 'status';
+                errorStatusEl.textContent = `❌ ${safeErrorMessage}`;
+                generatorOutput.append(errorStatusEl);
+                showToast(safeErrorMessage, 'error');
             } finally {
                 generateBtn.disabled = false;
                 generateBtn.textContent = 'AI ile Üret';
