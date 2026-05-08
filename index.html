@@ -552,6 +552,127 @@
         .architecture-card h3 {
             font-size: 18px;
         }
+
+        /* AI Generator */
+        .ai-generator {
+            padding: 120px 0;
+            background: var(--bg-light);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .generator-panel {
+            max-width: 860px;
+            margin: 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+        }
+
+        .generator-warning {
+            margin-bottom: 24px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            background: rgba(239, 68, 68, 0.1);
+            color: #fecaca;
+            font-size: 14px;
+        }
+
+        .generator-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .generator-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .generator-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .generator-field label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .generator-field input,
+        .generator-field select,
+        .generator-field textarea {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text);
+            padding: 12px 14px;
+            outline: none;
+            font-size: 15px;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .generator-field input:focus,
+        .generator-field select:focus,
+        .generator-field textarea:focus {
+            border-color: var(--primary);
+            background: var(--surface-hover);
+        }
+
+        .generator-field textarea {
+            min-height: 132px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .generator-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 8px;
+        }
+
+        .generator-output {
+            margin-top: 24px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            padding: 18px;
+            min-height: 90px;
+        }
+
+        .generator-output .status {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .generator-output pre {
+            margin-top: 8px;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #f3f4f6;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .generator-output img {
+            width: 100%;
+            max-height: 520px;
+            object-fit: contain;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-top: 8px;
+            background: #000;
+        }
+
+        .generator-help-text {
+            margin-top: 12px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
         
         /* Pricing */
         .pricing {
@@ -866,6 +987,10 @@
             .pricing-card.popular {
                 transform: none;
             }
+
+            .generator-grid {
+                grid-template-columns: 1fr;
+            }
             
             .countdown {
                 gap: 12px;
@@ -889,6 +1014,7 @@
             <div class="nav-links">
                 <a href="#features">Özellikler</a>
                 <a href="#how-it-works">Nasıl Çalışır</a>
+                <a href="#ai-generator">AI Generator</a>
                 <a href="#pricing">Fiyatlandırma</a>
                 <a href="#faq">SSS</a>
                 <a href="#waitlist" class="nav-cta">Erken Erişim</a>
@@ -1067,6 +1193,61 @@
                         </div>
                     </div>
                 </div>
+        </div>
+    </section>
+    
+    <!-- AI Generator -->
+    <section class="ai-generator" id="ai-generator">
+        <div class="container">
+            <div class="section-header">
+                <h2>Canlı AI Generator (MVP)</h2>
+                <p>Tek ekrandan metin veya görsel üretimi test et</p>
+            </div>
+
+            <div class="generator-panel">
+                <div class="generator-warning">
+                    🔒 Güvenlik için üretim istekleri backend endpoint'ine gönderilir; üçüncü parti API anahtarlarını tarayıcıya koymayın.
+                </div>
+
+                <form id="aiGeneratorForm">
+                    <div class="generator-grid">
+                        <div class="generator-field">
+                            <label for="backendEndpointInput">Backend Endpoint</label>
+                            <input id="backendEndpointInput" type="text" placeholder="/api/generate" value="/api/generate" required>
+                        </div>
+                        <div class="generator-field">
+                            <label for="backendTokenInput">Backend Access Token (Opsiyonel)</label>
+                            <input id="backendTokenInput" type="password" placeholder="Bearer token (opsiyonel)">
+                        </div>
+                        <div class="generator-field">
+                            <label for="generationType">Üretim Türü</label>
+                            <select id="generationType">
+                                <option value="text">Metin</option>
+                                <option value="image">Görsel</option>
+                            </select>
+                        </div>
+                        <div class="generator-field">
+                            <label for="modelInput">Model</label>
+                            <input id="modelInput" type="text" value="gpt-4o-mini" required>
+                        </div>
+                        <div class="generator-field full">
+                            <label for="promptInput">Prompt</label>
+                            <textarea id="promptInput" placeholder="Örn: Yeni açılan bir kahve markası için enerjik bir Instagram reklam metni üret." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="generator-actions">
+                        <button type="submit" class="btn" id="generateBtn">AI ile Üret</button>
+                    </div>
+                    <p class="generator-help-text">
+                        Beklenen backend yanıtı: metin için <strong>text/content/output</strong>, görsel için <strong>imageUrl/url</strong> veya <strong>b64</strong>.
+                    </p>
+                </form>
+
+                <div class="generator-output" id="generatorOutput">
+                    <div class="status">Hazır. Prompt girip üretimi başlat.</div>
+                </div>
+            </div>
         </div>
     </section>
     
@@ -1313,6 +1494,149 @@
         
         document.getElementById('waitlistForm').addEventListener('submit', handleFormSubmit);
         document.getElementById('footerWaitlistForm').addEventListener('submit', handleFormSubmit);
+
+        // AI Generator
+        const aiGeneratorForm = document.getElementById('aiGeneratorForm');
+        const generationType = document.getElementById('generationType');
+        const modelInput = document.getElementById('modelInput');
+        const promptInput = document.getElementById('promptInput');
+        const generateBtn = document.getElementById('generateBtn');
+        const generatorOutput = document.getElementById('generatorOutput');
+
+        generationType.addEventListener('change', () => {
+            if (generationType.value === 'image') {
+                modelInput.value = 'dall-e-3';
+                promptInput.placeholder = 'Örn: Mor neon ışıklarla cyberpunk tarzında İstanbul silüeti, sinematik, yüksek detay.';
+            } else {
+                modelInput.value = 'gpt-4o-mini';
+                promptInput.placeholder = 'Örn: Yeni açılan bir kahve markası için enerjik bir Instagram reklam metni üret.';
+            }
+        });
+
+        function setGeneratorOutput(statusText, contentElement = null) {
+            generatorOutput.innerHTML = '';
+            const statusEl = document.createElement('div');
+            statusEl.className = 'status';
+            statusEl.textContent = statusText;
+            generatorOutput.append(statusEl);
+            if (contentElement) {
+                generatorOutput.append(contentElement);
+            }
+        }
+
+        async function generateAI(e) {
+            e.preventDefault();
+
+            const backendEndpoint = document.getElementById('backendEndpointInput').value.trim();
+            const rawBackendToken = document.getElementById('backendTokenInput').value.trim();
+            const backendToken = rawBackendToken.replace(/^Bearer\s+/i, '');
+            const type = generationType.value;
+            const model = modelInput.value.trim();
+            const prompt = promptInput.value.trim();
+            const tokenPattern = /^[^\r\n]+$/;
+            const base64Pattern = /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
+
+            if (!backendEndpoint || !model || !prompt) {
+                showToast('Lütfen tüm alanları doldur.', 'error');
+                return;
+            }
+
+            if (backendToken && !tokenPattern.test(backendToken)) {
+                showToast('Geçersiz backend token formatı.', 'error');
+                return;
+            }
+
+            generateBtn.disabled = true;
+            generateBtn.textContent = 'Üretiliyor...';
+            setGeneratorOutput('İşleniyor...');
+
+            try {
+                const headers = {
+                    'Content-Type': 'application/json'
+                };
+                if (backendToken) {
+                    headers.Authorization = `Bearer ${backendToken}`;
+                }
+
+                const response = await fetch(backendEndpoint, {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify({ type, model, prompt })
+                });
+
+                let data = null;
+                let parseErrorMessage = '';
+                const responseType = response.headers.get('content-type') || '';
+                if (responseType.includes('application/json')) {
+                    try {
+                        data = await response.json();
+                    } catch (parseError) {
+                        parseErrorMessage = parseError.message;
+                        data = null;
+                    }
+                }
+
+                if (!response.ok) {
+                    const fallback = type === 'text'
+                        ? `Metin üretimi başarısız oldu (HTTP ${response.status}). Endpoint, model ve backend kimlik doğrulamasını kontrol et.`
+                        : `Görsel üretimi başarısız oldu (HTTP ${response.status}). Endpoint, model ve backend kimlik doğrulamasını kontrol et.`;
+                    throw new Error(data?.error?.message || fallback);
+                }
+
+                if (!data) {
+                    throw new Error(
+                        parseErrorMessage
+                            ? `Backend JSON formatında yanıt dönmedi: ${parseErrorMessage}`
+                            : 'Backend JSON formatında yanıt dönmedi.'
+                    );
+                }
+
+                if (type === 'text') {
+                    const textResult = data.text || data.content || data.output;
+                    if (!textResult) {
+                        throw new Error('Backend metin döndürmedi. JSON içinde text/content/output alanı bekleniyor.');
+                    }
+
+                    const pre = document.createElement('pre');
+                    pre.textContent = textResult;
+                    setGeneratorOutput('✅ Metin üretildi', pre);
+                } else {
+                    const imageUrl = data.imageUrl || data.url;
+                    const b64 = data.b64 || data.b64_json;
+                    if (!imageUrl && !b64) {
+                        throw new Error('Backend görsel döndürmedi. JSON içinde imageUrl/url veya b64/b64_json alanı bekleniyor.');
+                    }
+                    if (b64 && (!b64.length || !base64Pattern.test(b64))) {
+                        throw new Error('Geçersiz base64 görsel verisi döndü.');
+                    }
+                    if (imageUrl) {
+                        let parsedImageUrl;
+                        try {
+                            parsedImageUrl = new URL(imageUrl);
+                        } catch (_error) {
+                            throw new Error('Geçersiz görsel URL formatı döndü.');
+                        }
+                        if (!['http:', 'https:'].includes(parsedImageUrl.protocol)) {
+                            throw new Error('Görsel URL protokolü güvenli değil.');
+                        }
+                    }
+
+                    const img = document.createElement('img');
+                    img.alt = 'AI tarafından üretilen görsel';
+                    img.src = imageUrl || `data:image/png;base64,${b64}`;
+                    setGeneratorOutput('✅ Görsel üretildi', img);
+                }
+            } catch (error) {
+                const safeErrorMessage = error?.message || 'Üretim hatası oluştu.';
+                setGeneratorOutput(`❌ ${safeErrorMessage}`);
+                showToast(safeErrorMessage, 'error');
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.textContent = 'AI ile Üret';
+            }
+        }
+
+        aiGeneratorForm.addEventListener('submit', generateAI);
         
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
