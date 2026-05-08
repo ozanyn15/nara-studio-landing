@@ -1200,18 +1200,18 @@
 
             <div class="generator-panel">
                 <div class="generator-warning">
-                    ⚠️ Bu demo API anahtarını tarayıcıdan kullanır. Gerçek ürün için istekleri backend üzerinden geçirmelisin.
+                    🔒 Güvenlik için üretim istekleri backend endpoint'ine gönderilir; üçüncü parti API anahtarlarını tarayıcıya koyma.
                 </div>
 
                 <form id="aiGeneratorForm">
                     <div class="generator-grid">
                         <div class="generator-field">
-                            <label for="apiBaseInput">API Base URL</label>
-                            <input id="apiBaseInput" type="url" placeholder="https://api.openai.com/v1" value="https://api.openai.com/v1" required>
+                            <label for="backendEndpointInput">Backend Endpoint</label>
+                            <input id="backendEndpointInput" type="text" placeholder="/api/generate" value="/api/generate" required>
                         </div>
                         <div class="generator-field">
-                            <label for="apiKeyInput">API Key</label>
-                            <input id="apiKeyInput" type="password" placeholder="sk-..." required>
+                            <label for="backendTokenInput">Backend Access Token (Opsiyonel)</label>
+                            <input id="backendTokenInput" type="password" placeholder="Bearer token (opsiyonel)">
                         </div>
                         <div class="generator-field">
                             <label for="generationType">Üretim Türü</label>
@@ -1233,6 +1233,9 @@
                     <div class="generator-actions">
                         <button type="submit" class="btn" id="generateBtn">AI ile Üret</button>
                     </div>
+                    <p style="margin-top:12px;color:var(--text-muted);font-size:13px;">
+                        Beklenen backend yanıtı: metin için <strong>text/content/output</strong>, görsel için <strong>imageUrl/url</strong> veya <strong>b64</strong>.
+                    </p>
                 </form>
 
                 <div class="generator-output" id="generatorOutput">
@@ -1507,13 +1510,13 @@
         async function generateAI(e) {
             e.preventDefault();
 
-            const apiBase = document.getElementById('apiBaseInput').value.trim().replace(/\/$/, '');
-            const apiKey = document.getElementById('apiKeyInput').value.trim();
+            const backendEndpoint = document.getElementById('backendEndpointInput').value.trim();
+            const backendToken = document.getElementById('backendTokenInput').value.trim();
             const type = generationType.value;
             const model = modelInput.value.trim();
             const prompt = promptInput.value.trim();
 
-            if (!apiBase || !apiKey || !model || !prompt) {
+            if (!backendEndpoint || !model || !prompt) {
                 showToast('Lütfen tüm alanları doldur.', 'error');
                 return;
             }
@@ -1523,30 +1526,31 @@
             generatorOutput.innerHTML = '<div class="status">İşleniyor...</div>';
 
             try {
+                const headers = {
+                    'Content-Type': 'application/json'
+                };
+                if (backendToken) {
+                    headers.Authorization = `Bearer ${backendToken}`;
+                }
+
+                const response = await fetch(backendEndpoint, {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify({ type, model, prompt })
+                });
+
+                const data = await response.json();
+                if (!response.ok) {
+                    const fallback = type === 'text'
+                        ? `Metin üretimi başarısız oldu (HTTP ${response.status}). Endpoint, model ve backend kimlik doğrulamasını kontrol et.`
+                        : `Görsel üretimi başarısız oldu (HTTP ${response.status}). Endpoint, model ve backend kimlik doğrulamasını kontrol et.`;
+                    throw new Error(data.error?.message || fallback);
+                }
+
                 if (type === 'text') {
-                    const response = await fetch(`${apiBase}/chat/completions`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${apiKey}`
-                        },
-                        body: JSON.stringify({
-                            model,
-                            messages: [
-                                { role: 'system', content: 'Kısa, net ve pazarlama odaklı cevap üret.' },
-                                { role: 'user', content: prompt }
-                            ]
-                        })
-                    });
-
-                    const data = await response.json();
-                    if (!response.ok) {
-                        throw new Error(data.error?.message || 'Metin üretimi başarısız oldu.');
-                    }
-
-                    const textResult = data.choices?.[0]?.message?.content;
+                    const textResult = data.text || data.content || data.output;
                     if (!textResult) {
-                        throw new Error('Model metin döndürmedi.');
+                        throw new Error('Backend metin döndürmedi. JSON içinde text/content/output alanı bekleniyor.');
                     }
 
                     const statusEl = document.createElement('div');
@@ -1557,28 +1561,10 @@
                     generatorOutput.innerHTML = '';
                     generatorOutput.append(statusEl, pre);
                 } else {
-                    const response = await fetch(`${apiBase}/images/generations`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${apiKey}`
-                        },
-                        body: JSON.stringify({
-                            model,
-                            prompt,
-                            size: '1024x1024'
-                        })
-                    });
-
-                    const data = await response.json();
-                    if (!response.ok) {
-                        throw new Error(data.error?.message || 'Görsel üretimi başarısız oldu.');
-                    }
-
-                    const imageUrl = data.data?.[0]?.url;
-                    const b64 = data.data?.[0]?.b64_json;
+                    const imageUrl = data.imageUrl || data.url;
+                    const b64 = data.b64 || data.b64_json;
                     if (!imageUrl && !b64) {
-                        throw new Error('Model görsel döndürmedi.');
+                        throw new Error('Backend görsel döndürmedi. JSON içinde imageUrl/url veya b64/b64_json alanı bekleniyor.');
                     }
 
                     const statusEl = document.createElement('div');
@@ -1591,7 +1577,7 @@
                     generatorOutput.append(statusEl, img);
                 }
             } catch (error) {
-                generatorOutput.innerHTML = '<div class="status">❌ Üretim hatası oluştu.</div>';
+                generatorOutput.innerHTML = `<div class="status">❌ ${error.message || 'Üretim hatası oluştu.'}</div>`;
                 showToast(error.message || 'Bilinmeyen hata', 'error');
             } finally {
                 generateBtn.disabled = false;
