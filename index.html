@@ -1522,6 +1522,7 @@
             const model = modelInput.value.trim();
             const prompt = promptInput.value.trim();
             const tokenPattern = /^[A-Za-z0-9._~-]+$/;
+            const base64Pattern = /^[A-Za-z0-9+/=]+$/;
 
             if (!backendEndpoint || !model || !prompt) {
                 showToast('Lütfen tüm alanları doldur.', 'error');
@@ -1530,6 +1531,11 @@
 
             if (backendToken && !tokenPattern.test(backendToken)) {
                 showToast('Geçersiz backend token formatı.', 'error');
+                return;
+            }
+
+            if (backendToken && backendToken.length < 20) {
+                showToast('Backend token en az 20 karakter olmalı.', 'error');
                 return;
             }
 
@@ -1552,11 +1558,13 @@
                 });
 
                 let data = null;
+                let parseErrorMessage = '';
                 const responseType = response.headers.get('content-type') || '';
                 if (responseType.includes('application/json')) {
                     try {
                         data = await response.json();
-                    } catch (_error) {
+                    } catch (parseError) {
+                        parseErrorMessage = parseError.message;
                         data = null;
                     }
                 }
@@ -1569,7 +1577,11 @@
                 }
 
                 if (!data) {
-                    throw new Error('Backend JSON formatında yanıt dönmedi.');
+                    throw new Error(
+                        parseErrorMessage
+                            ? `Backend JSON formatında yanıt dönmedi: ${parseErrorMessage}`
+                            : 'Backend JSON formatında yanıt dönmedi.'
+                    );
                 }
 
                 if (type === 'text') {
@@ -1590,6 +1602,9 @@
                     const b64 = data.b64 || data.b64_json;
                     if (!imageUrl && !b64) {
                         throw new Error('Backend görsel döndürmedi. JSON içinde imageUrl/url veya b64/b64_json alanı bekleniyor.');
+                    }
+                    if (b64 && !base64Pattern.test(b64)) {
+                        throw new Error('Geçersiz base64 görsel verisi döndü.');
                     }
 
                     const statusEl = document.createElement('div');
